@@ -6,11 +6,22 @@
 #include <unistd.h>
 #include <errno.h>
 #include <arpa/inet.h>
+#include <pthread.h>
 
+void *thread_function(void *arg) {
+
+    return NULL;
+}
 int main() {
     int port, openCount = 0, closeCount = 0;
     char ipTarget[100];
     int openPorts[1024], closedPorts[1024];
+
+    pthread_t thread_id;
+    typedef struct {
+    char ip[100];
+    int port;
+} ScanArgs;
 
     printf("Type the IP address to scan: ");
     scanf("%s", ipTarget);
@@ -39,7 +50,7 @@ int main() {
             printf("%d/tcp open\n", port);
         } else {
             closedPorts[closeCount++] = port;
-            perror("connect"); 
+            // perror("connect"); 
         }
 
         close(socket_fd);
